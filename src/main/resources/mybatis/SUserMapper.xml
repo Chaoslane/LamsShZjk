@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bwzk.dao.i.SUserMapper" >
+  <resultMap id="BaseResultMap" type="com.bwzk.pojo.SUser" >
+    <id column="DID" property="did" jdbcType="INTEGER" />
+    <result column="PID" property="pid" jdbcType="INTEGER" />
+    <result column="USERCODE" property="usercode" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWD" property="passwd" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="TEL_O" property="telO" jdbcType="VARCHAR" />
+    <result column="TEL_H" property="telH" jdbcType="VARCHAR" />
+    <result column="TEL_M" property="telM" jdbcType="VARCHAR" />
+    <result column="CARD" property="card" jdbcType="VARCHAR" />
+    <result column="ADDR_O" property="addrO" jdbcType="VARCHAR" />
+    <result column="ADDR_H" property="addrH" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+    <result column="ISLSYH" property="islsyh" jdbcType="INTEGER" />
+    <result column="YXQSRQ" property="yxqsrq" jdbcType="TIMESTAMP" />
+    <result column="YXZZRQ" property="yxzzrq" jdbcType="TIMESTAMP" />
+    <result column="MACINFO" property="macinfo" jdbcType="VARCHAR" />
+    <result column="CHECKMAC" property="checkmac" jdbcType="INTEGER" />
+    <result column="ISEMPOWER" property="isempower" jdbcType="INTEGER" />
+    <result column="FQJS" property="fqjs" jdbcType="VARCHAR" />
+    <result column="MANAGEDEP" property="managedep" jdbcType="VARCHAR" />
+    <result column="MJ" property="mj" jdbcType="VARCHAR" />
+    <result column="ESBID" property="esbid" jdbcType="VARCHAR" />
+    <result column="ESBCODE" property="esbcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="dFile" type="com.bwzk.pojo.DFile" >
+    <id column="DID" property="did" jdbcType="INTEGER" />
+    <result column="PID" property="pid" jdbcType="INTEGER" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bwzk.pojo.SUserWithBLOBs" extends="BaseResultMap" >
+    <result column="INI" property="ini" jdbcType="BLOB" />
+    <result column="INIXML" property="inixml" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DID, PID, USERCODE, USERNAME, PASSWD, EMAIL, TEL_O, TEL_H, TEL_M, CARD, ADDR_O, ADDR_H, 
+    QQ, BZ, ISLSYH, YXQSRQ, YXZZRQ, MACINFO, CHECKMAC, ISEMPOWER, FQJS, MANAGEDEP, MJ, 
+    ESBID, ESBCODE
+  </sql>
+  <sql id="Blob_Column_List" >
+    INI, INIXML
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.bwzk.pojo.SUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from S_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bwzk.pojo.SUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from S_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from S_USER
+    where DID = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from S_USER
+    where DID = #{did,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bwzk.pojo.SUserExample" >
+    delete from S_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bwzk.pojo.SUserWithBLOBs" >
+    insert into S_USER (DID, PID, USERCODE, 
+      USERNAME, PASSWD, EMAIL, 
+      TEL_O, TEL_H, TEL_M, CARD, 
+      ADDR_O, ADDR_H, QQ, BZ, 
+      ISLSYH, YXQSRQ, YXZZRQ, 
+      MACINFO, CHECKMAC, ISEMPOWER, 
+      FQJS, MANAGEDEP, MJ, 
+      ESBID, ESBCODE, INI, INIXML
+      )
+    values (#{did,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{telO,jdbcType=VARCHAR}, #{telH,jdbcType=VARCHAR}, #{telM,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
+      #{addrO,jdbcType=VARCHAR}, #{addrH,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, 
+      #{islsyh,jdbcType=INTEGER}, #{yxqsrq,jdbcType=TIMESTAMP}, #{yxzzrq,jdbcType=TIMESTAMP}, 
+      #{macinfo,jdbcType=VARCHAR}, #{checkmac,jdbcType=INTEGER}, #{isempower,jdbcType=INTEGER}, 
+      #{fqjs,jdbcType=VARCHAR}, #{managedep,jdbcType=VARCHAR}, #{mj,jdbcType=VARCHAR}, 
+      #{esbid,jdbcType=VARCHAR}, #{esbcode,jdbcType=VARCHAR}, #{ini,jdbcType=BLOB}, #{inixml,jdbcType=BLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwzk.pojo.SUserWithBLOBs" >
+    insert into S_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        DID,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="usercode != null" >
+        USERCODE,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="passwd != null" >
+        PASSWD,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="telO != null" >
+        TEL_O,
+      </if>
+      <if test="telH != null" >
+        TEL_H,
+      </if>
+      <if test="telM != null" >
+        TEL_M,
+      </if>
+      <if test="card != null" >
+        CARD,
+      </if>
+      <if test="addrO != null" >
+        ADDR_O,
+      </if>
+      <if test="addrH != null" >
+        ADDR_H,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
+      <if test="islsyh != null" >
+        ISLSYH,
+      </if>
+      <if test="yxqsrq != null" >
+        YXQSRQ,
+      </if>
+      <if test="yxzzrq != null" >
+        YXZZRQ,
+      </if>
+      <if test="macinfo != null" >
+        MACINFO,
+      </if>
+      <if test="checkmac != null" >
+        CHECKMAC,
+      </if>
+      <if test="isempower != null" >
+        ISEMPOWER,
+      </if>
+      <if test="fqjs != null" >
+        FQJS,
+      </if>
+      <if test="managedep != null" >
+        MANAGEDEP,
+      </if>
+      <if test="mj != null" >
+        MJ,
+      </if>
+      <if test="esbid != null" >
+        ESBID,
+      </if>
+      <if test="esbcode != null" >
+        ESBCODE,
+      </if>
+      <if test="ini != null" >
+        INI,
+      </if>
+      <if test="inixml != null" >
+        INIXML,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telO != null" >
+        #{telO,jdbcType=VARCHAR},
+      </if>
+      <if test="telH != null" >
+        #{telH,jdbcType=VARCHAR},
+      </if>
+      <if test="telM != null" >
+        #{telM,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null" >
+        #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="addrO != null" >
+        #{addrO,jdbcType=VARCHAR},
+      </if>
+      <if test="addrH != null" >
+        #{addrH,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="islsyh != null" >
+        #{islsyh,jdbcType=INTEGER},
+      </if>
+      <if test="yxqsrq != null" >
+        #{yxqsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yxzzrq != null" >
+        #{yxzzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="macinfo != null" >
+        #{macinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="checkmac != null" >
+        #{checkmac,jdbcType=INTEGER},
+      </if>
+      <if test="isempower != null" >
+        #{isempower,jdbcType=INTEGER},
+      </if>
+      <if test="fqjs != null" >
+        #{fqjs,jdbcType=VARCHAR},
+      </if>
+      <if test="managedep != null" >
+        #{managedep,jdbcType=VARCHAR},
+      </if>
+      <if test="mj != null" >
+        #{mj,jdbcType=VARCHAR},
+      </if>
+      <if test="esbid != null" >
+        #{esbid,jdbcType=VARCHAR},
+      </if>
+      <if test="esbcode != null" >
+        #{esbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ini != null" >
+        #{ini,jdbcType=BLOB},
+      </if>
+      <if test="inixml != null" >
+        #{inixml,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bwzk.pojo.SUserExample" resultType="java.lang.Integer" >
+    select count(*) from S_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update S_USER
+    <set >
+      <if test="record.did != null" >
+        DID = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.usercode != null" >
+        USERCODE = #{record.usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwd != null" >
+        PASSWD = #{record.passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telO != null" >
+        TEL_O = #{record.telO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telH != null" >
+        TEL_H = #{record.telH,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telM != null" >
+        TEL_M = #{record.telM,jdbcType=VARCHAR},
+      </if>
+      <if test="record.card != null" >
+        CARD = #{record.card,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrO != null" >
+        ADDR_O = #{record.addrO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrH != null" >
+        ADDR_H = #{record.addrH,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        QQ = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz != null" >
+        BZ = #{record.bz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.islsyh != null" >
+        ISLSYH = #{record.islsyh,jdbcType=INTEGER},
+      </if>
+      <if test="record.yxqsrq != null" >
+        YXQSRQ = #{record.yxqsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.yxzzrq != null" >
+        YXZZRQ = #{record.yxzzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.macinfo != null" >
+        MACINFO = #{record.macinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkmac != null" >
+        CHECKMAC = #{record.checkmac,jdbcType=INTEGER},
+      </if>
+      <if test="record.isempower != null" >
+        ISEMPOWER = #{record.isempower,jdbcType=INTEGER},
+      </if>
+      <if test="record.fqjs != null" >
+        FQJS = #{record.fqjs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managedep != null" >
+        MANAGEDEP = #{record.managedep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mj != null" >
+        MJ = #{record.mj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esbid != null" >
+        ESBID = #{record.esbid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esbcode != null" >
+        ESBCODE = #{record.esbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ini != null" >
+        INI = #{record.ini,jdbcType=BLOB},
+      </if>
+      <if test="record.inixml != null" >
+        INIXML = #{record.inixml,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update S_USER
+    set DID = #{record.did,jdbcType=INTEGER},
+      PID = #{record.pid,jdbcType=INTEGER},
+      USERCODE = #{record.usercode,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWD = #{record.passwd,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      TEL_O = #{record.telO,jdbcType=VARCHAR},
+      TEL_H = #{record.telH,jdbcType=VARCHAR},
+      TEL_M = #{record.telM,jdbcType=VARCHAR},
+      CARD = #{record.card,jdbcType=VARCHAR},
+      ADDR_O = #{record.addrO,jdbcType=VARCHAR},
+      ADDR_H = #{record.addrH,jdbcType=VARCHAR},
+      QQ = #{record.qq,jdbcType=VARCHAR},
+      BZ = #{record.bz,jdbcType=VARCHAR},
+      ISLSYH = #{record.islsyh,jdbcType=INTEGER},
+      YXQSRQ = #{record.yxqsrq,jdbcType=TIMESTAMP},
+      YXZZRQ = #{record.yxzzrq,jdbcType=TIMESTAMP},
+      MACINFO = #{record.macinfo,jdbcType=VARCHAR},
+      CHECKMAC = #{record.checkmac,jdbcType=INTEGER},
+      ISEMPOWER = #{record.isempower,jdbcType=INTEGER},
+      FQJS = #{record.fqjs,jdbcType=VARCHAR},
+      MANAGEDEP = #{record.managedep,jdbcType=VARCHAR},
+      MJ = #{record.mj,jdbcType=VARCHAR},
+      ESBID = #{record.esbid,jdbcType=VARCHAR},
+      ESBCODE = #{record.esbcode,jdbcType=VARCHAR},
+      INI = #{record.ini,jdbcType=BLOB},
+      INIXML = #{record.inixml,jdbcType=BLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update S_USER
+    set DID = #{record.did,jdbcType=INTEGER},
+      PID = #{record.pid,jdbcType=INTEGER},
+      USERCODE = #{record.usercode,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWD = #{record.passwd,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      TEL_O = #{record.telO,jdbcType=VARCHAR},
+      TEL_H = #{record.telH,jdbcType=VARCHAR},
+      TEL_M = #{record.telM,jdbcType=VARCHAR},
+      CARD = #{record.card,jdbcType=VARCHAR},
+      ADDR_O = #{record.addrO,jdbcType=VARCHAR},
+      ADDR_H = #{record.addrH,jdbcType=VARCHAR},
+      QQ = #{record.qq,jdbcType=VARCHAR},
+      BZ = #{record.bz,jdbcType=VARCHAR},
+      ISLSYH = #{record.islsyh,jdbcType=INTEGER},
+      YXQSRQ = #{record.yxqsrq,jdbcType=TIMESTAMP},
+      YXZZRQ = #{record.yxzzrq,jdbcType=TIMESTAMP},
+      MACINFO = #{record.macinfo,jdbcType=VARCHAR},
+      CHECKMAC = #{record.checkmac,jdbcType=INTEGER},
+      ISEMPOWER = #{record.isempower,jdbcType=INTEGER},
+      FQJS = #{record.fqjs,jdbcType=VARCHAR},
+      MANAGEDEP = #{record.managedep,jdbcType=VARCHAR},
+      MJ = #{record.mj,jdbcType=VARCHAR},
+      ESBID = #{record.esbid,jdbcType=VARCHAR},
+      ESBCODE = #{record.esbcode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwzk.pojo.SUserWithBLOBs" >
+    update S_USER
+    <set >
+      <if test="pid != null" >
+        PID = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="usercode != null" >
+        USERCODE = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        PASSWD = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telO != null" >
+        TEL_O = #{telO,jdbcType=VARCHAR},
+      </if>
+      <if test="telH != null" >
+        TEL_H = #{telH,jdbcType=VARCHAR},
+      </if>
+      <if test="telM != null" >
+        TEL_M = #{telM,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null" >
+        CARD = #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="addrO != null" >
+        ADDR_O = #{addrO,jdbcType=VARCHAR},
+      </if>
+      <if test="addrH != null" >
+        ADDR_H = #{addrH,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="islsyh != null" >
+        ISLSYH = #{islsyh,jdbcType=INTEGER},
+      </if>
+      <if test="yxqsrq != null" >
+        YXQSRQ = #{yxqsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yxzzrq != null" >
+        YXZZRQ = #{yxzzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="macinfo != null" >
+        MACINFO = #{macinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="checkmac != null" >
+        CHECKMAC = #{checkmac,jdbcType=INTEGER},
+      </if>
+      <if test="isempower != null" >
+        ISEMPOWER = #{isempower,jdbcType=INTEGER},
+      </if>
+      <if test="fqjs != null" >
+        FQJS = #{fqjs,jdbcType=VARCHAR},
+      </if>
+      <if test="managedep != null" >
+        MANAGEDEP = #{managedep,jdbcType=VARCHAR},
+      </if>
+      <if test="mj != null" >
+        MJ = #{mj,jdbcType=VARCHAR},
+      </if>
+      <if test="esbid != null" >
+        ESBID = #{esbid,jdbcType=VARCHAR},
+      </if>
+      <if test="esbcode != null" >
+        ESBCODE = #{esbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ini != null" >
+        INI = #{ini,jdbcType=BLOB},
+      </if>
+      <if test="inixml != null" >
+        INIXML = #{inixml,jdbcType=BLOB},
+      </if>
+    </set>
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bwzk.pojo.SUserWithBLOBs" >
+    update S_USER
+    set PID = #{pid,jdbcType=INTEGER},
+      USERCODE = #{usercode,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWD = #{passwd,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      TEL_O = #{telO,jdbcType=VARCHAR},
+      TEL_H = #{telH,jdbcType=VARCHAR},
+      TEL_M = #{telM,jdbcType=VARCHAR},
+      CARD = #{card,jdbcType=VARCHAR},
+      ADDR_O = #{addrO,jdbcType=VARCHAR},
+      ADDR_H = #{addrH,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      ISLSYH = #{islsyh,jdbcType=INTEGER},
+      YXQSRQ = #{yxqsrq,jdbcType=TIMESTAMP},
+      YXZZRQ = #{yxzzrq,jdbcType=TIMESTAMP},
+      MACINFO = #{macinfo,jdbcType=VARCHAR},
+      CHECKMAC = #{checkmac,jdbcType=INTEGER},
+      ISEMPOWER = #{isempower,jdbcType=INTEGER},
+      FQJS = #{fqjs,jdbcType=VARCHAR},
+      MANAGEDEP = #{managedep,jdbcType=VARCHAR},
+      MJ = #{mj,jdbcType=VARCHAR},
+      ESBID = #{esbid,jdbcType=VARCHAR},
+      ESBCODE = #{esbcode,jdbcType=VARCHAR},
+      INI = #{ini,jdbcType=BLOB},
+      INIXML = #{inixml,jdbcType=BLOB}
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwzk.pojo.SUser" >
+    update S_USER
+    set PID = #{pid,jdbcType=INTEGER},
+      USERCODE = #{usercode,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWD = #{passwd,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      TEL_O = #{telO,jdbcType=VARCHAR},
+      TEL_H = #{telH,jdbcType=VARCHAR},
+      TEL_M = #{telM,jdbcType=VARCHAR},
+      CARD = #{card,jdbcType=VARCHAR},
+      ADDR_O = #{addrO,jdbcType=VARCHAR},
+      ADDR_H = #{addrH,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      ISLSYH = #{islsyh,jdbcType=INTEGER},
+      YXQSRQ = #{yxqsrq,jdbcType=TIMESTAMP},
+      YXZZRQ = #{yxzzrq,jdbcType=TIMESTAMP},
+      MACINFO = #{macinfo,jdbcType=VARCHAR},
+      CHECKMAC = #{checkmac,jdbcType=INTEGER},
+      ISEMPOWER = #{isempower,jdbcType=INTEGER},
+      FQJS = #{fqjs,jdbcType=VARCHAR},
+      MANAGEDEP = #{managedep,jdbcType=VARCHAR},
+      MJ = #{mj,jdbcType=VARCHAR},
+      ESBID = #{esbid,jdbcType=VARCHAR},
+      ESBCODE = #{esbcode,jdbcType=VARCHAR}
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByKey" parameterType="com.bwzk.pojo.SUser" >
+    update S_USER
+    set USERCODE = #{usercode,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWD = #{passwd,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      TEL_O = #{telO,jdbcType=VARCHAR},
+      TEL_H = #{telH,jdbcType=VARCHAR},
+      TEL_M = #{telM,jdbcType=VARCHAR},
+      CARD = #{card,jdbcType=VARCHAR},
+      ADDR_O = #{addrO,jdbcType=VARCHAR},
+      ADDR_H = #{addrH,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      ISLSYH = #{islsyh,jdbcType=INTEGER},
+      YXQSRQ = #{yxqsrq,jdbcType=TIMESTAMP},
+      YXZZRQ = #{yxzzrq,jdbcType=TIMESTAMP},
+      MACINFO = #{macinfo,jdbcType=VARCHAR},
+      CHECKMAC = #{checkmac,jdbcType=INTEGER},
+      ISEMPOWER = #{isempower,jdbcType=INTEGER},
+      FQJS = #{fqjs,jdbcType=VARCHAR},
+      MANAGEDEP = #{managedep,jdbcType=VARCHAR},
+      MJ = #{mj,jdbcType=VARCHAR},
+      INI = #{ini,jdbcType=BLOB},
+      INIXML = #{inixml,jdbcType=BLOB}
+    where ESBID = #{esbid,jdbcType=VARCHAR}
+  </update>
+  	<select id="listPageDFileByWhere" parameterType="map" resultMap="dFile">
+		select did,pid,title,wenhao,f5,f1,f11 from ${dTableName} where  ${whereSqlandOrder} 
+	</select>
+	<select id="listPageMapQuery" parameterType="map" resultType="java.util.Map">
+		 ${sql}  
+	</select>
+  
+</mapper>

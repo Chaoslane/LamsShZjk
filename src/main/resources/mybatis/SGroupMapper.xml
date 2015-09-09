@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bwzk.dao.i.SGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.bwzk.pojo.SGroup" >
+    <id column="DID" property="did" jdbcType="INTEGER" />
+    <result column="PID" property="pid" jdbcType="INTEGER" />
+    <result column="QZH" property="qzh" jdbcType="VARCHAR" />
+    <result column="GID" property="gid" jdbcType="INTEGER" />
+    <result column="GNAME" property="gname" jdbcType="VARCHAR" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+    <result column="DEPCODE" property="depcode" jdbcType="VARCHAR" />
+    <result column="DEPID" property="depid" jdbcType="VARCHAR" />
+    <result column="GFZJ" property="gfzj" jdbcType="VARCHAR" />
+    <result column="BH" property="bh" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DID, PID, QZH, GID, GNAME, BZ, BH, GFZJ, DEPCODE, DEPID
+  </sql>
+  <select id="selectByExample" parameterType="com.bwzk.pojo.SGroupExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from S_GROUP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from S_GROUP
+    where DID = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from S_GROUP
+    where DID = #{did,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bwzk.pojo.SGroupExample">
+    delete from S_GROUP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bwzk.pojo.SGroup">
+    insert into S_GROUP (DID, PID, QZH, 
+      GID, GNAME, BZ, BH, 
+      GFZJ, DEPCODE, DEPID
+      )
+    values (#{did,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{qzh,jdbcType=VARCHAR}, 
+      #{gid,jdbcType=INTEGER}, #{gname,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{bh,jdbcType=VARCHAR}, 
+      #{gfzj,jdbcType=VARCHAR}, #{depcode,jdbcType=VARCHAR}, #{depid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwzk.pojo.SGroup">
+    insert into S_GROUP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="did != null">
+        DID,
+      </if>
+      <if test="pid != null">
+        PID,
+      </if>
+      <if test="qzh != null">
+        QZH,
+      </if>
+      <if test="gid != null">
+        GID,
+      </if>
+      <if test="gname != null">
+        GNAME,
+      </if>
+      <if test="bz != null">
+        BZ,
+      </if>
+      <if test="bh != null">
+        BH,
+      </if>
+      <if test="gfzj != null">
+        GFZJ,
+      </if>
+      <if test="depcode != null">
+        DEPCODE,
+      </if>
+      <if test="depid != null">
+        DEPID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="did != null">
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="qzh != null">
+        #{qzh,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="gname != null">
+        #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="bh != null">
+        #{bh,jdbcType=VARCHAR},
+      </if>
+      <if test="gfzj != null">
+        #{gfzj,jdbcType=VARCHAR},
+      </if>
+      <if test="depcode != null">
+        #{depcode,jdbcType=VARCHAR},
+      </if>
+      <if test="depid != null">
+        #{depid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bwzk.pojo.SGroupExample" resultType="java.lang.Integer">
+    select count(*) from S_GROUP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update S_GROUP
+    <set>
+      <if test="record.did != null">
+        DID = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null">
+        PID = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qzh != null">
+        QZH = #{record.qzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gid != null">
+        GID = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gname != null">
+        GNAME = #{record.gname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz != null">
+        BZ = #{record.bz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bh != null">
+        BH = #{record.bh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gfzj != null">
+        GFZJ = #{record.gfzj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depcode != null">
+        DEPCODE = #{record.depcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depid != null">
+        DEPID = #{record.depid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update S_GROUP
+    set DID = #{record.did,jdbcType=INTEGER},
+      PID = #{record.pid,jdbcType=INTEGER},
+      QZH = #{record.qzh,jdbcType=VARCHAR},
+      GID = #{record.gid,jdbcType=INTEGER},
+      GNAME = #{record.gname,jdbcType=VARCHAR},
+      BZ = #{record.bz,jdbcType=VARCHAR},
+      BH = #{record.bh,jdbcType=VARCHAR},
+      GFZJ = #{record.gfzj,jdbcType=VARCHAR},
+      DEPCODE = #{record.depcode,jdbcType=VARCHAR},
+      DEPID = #{record.depid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwzk.pojo.SGroup">
+    update S_GROUP
+    <set>
+      <if test="pid != null">
+        PID = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="qzh != null">
+        QZH = #{qzh,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        GID = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="gname != null">
+        GNAME = #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="bh != null">
+        BH = #{bh,jdbcType=VARCHAR},
+      </if>
+      <if test="gfzj != null">
+        GFZJ = #{gfzj,jdbcType=VARCHAR},
+      </if>
+      <if test="depcode != null">
+        DEPCODE = #{depcode,jdbcType=VARCHAR},
+      </if>
+      <if test="depid != null">
+        DEPID = #{depid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwzk.pojo.SGroup">
+    update S_GROUP
+    set PID = #{pid,jdbcType=INTEGER},
+      QZH = #{qzh,jdbcType=VARCHAR},
+      GID = #{gid,jdbcType=INTEGER},
+      GNAME = #{gname,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      BH = #{bh,jdbcType=VARCHAR},
+      GFZJ = #{gfzj,jdbcType=VARCHAR},
+      DEPCODE = #{depcode,jdbcType=VARCHAR},
+      DEPID = #{depid,jdbcType=VARCHAR}
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByKey" parameterType="com.bwzk.pojo.SGroup">
+    update S_GROUP
+    set GID = #{gid,jdbcType=INTEGER},
+      GNAME = #{gname,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR}
+    where GFZJ = #{gfzj,jdbcType=VARCHAR}
+  </update>
+</mapper>

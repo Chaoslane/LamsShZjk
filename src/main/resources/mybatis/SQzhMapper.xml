@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwzk.dao.i.SQzhMapper">
+  <resultMap id="BaseResultMap" type="com.bwzk.pojo.SQzh">
+    <id column="DID" jdbcType="INTEGER" property="did" />
+    <result column="QZH" jdbcType="VARCHAR" property="qzh" />
+    <result column="QZMC" jdbcType="VARCHAR" property="qzmc" />
+    <result column="ISDEF" jdbcType="INTEGER" property="isdef" />
+    <result column="BZ" jdbcType="VARCHAR" property="bz" />
+    <result column="PRIMARYKEY" jdbcType="VARCHAR" property="primarykey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DID, QZH, QZMC, ISDEF, BZ, PRIMARYKEY
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from S_Qzh
+    where DID = #{did,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bwzk.pojo.SQzh">
+    insert into S_Qzh(DID, QZH, QZMC, 
+      ISDEF, BZ, PRIMARYKEY
+      )
+    values (#{did,jdbcType=INTEGER}, #{qzh,jdbcType=VARCHAR}, #{qzmc,jdbcType=VARCHAR}, 
+      #{isdef,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR}, #{primarykey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwzk.pojo.SQzh">
+    insert into S_Qzh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="did != null">
+        DID,
+      </if>
+      <if test="qzh != null">
+        QZH,
+      </if>
+      <if test="qzmc != null">
+        QZMC,
+      </if>
+      <if test="isdef != null">
+        ISDEF,
+      </if>
+      <if test="bz != null">
+        BZ,
+      </if>
+      <if test="primarykey != null">
+        PRIMARYKEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="did != null">
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="qzh != null">
+        #{qzh,jdbcType=VARCHAR},
+      </if>
+      <if test="qzmc != null">
+        #{qzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="isdef != null">
+        #{isdef,jdbcType=INTEGER},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="primarykey != null">
+        #{primarykey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwzk.pojo.SQzh">
+    update S_Qzh
+    <set>
+      <if test="qzh != null">
+        QZH = #{qzh,jdbcType=VARCHAR},
+      </if>
+      <if test="qzmc != null">
+        QZMC = #{qzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="isdef != null">
+        ISDEF = #{isdef,jdbcType=INTEGER},
+      </if>
+      <if test="bz != null">
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="primarykey != null">
+        PRIMARYKEY = #{primarykey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwzk.pojo.SQzh">
+    update S_Qzh
+    set QZH = #{qzh,jdbcType=VARCHAR},
+      QZMC = #{qzmc,jdbcType=VARCHAR},
+      ISDEF = #{isdef,jdbcType=INTEGER},
+      BZ = #{bz,jdbcType=VARCHAR},
+      PRIMARYKEY = #{primarykey,jdbcType=VARCHAR}
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+</mapper>

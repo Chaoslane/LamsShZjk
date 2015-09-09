@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bwzk.dao.i.SBacklogMapper" >
+  <resultMap id="BaseResultMap" type="com.bwzk.pojo.SBacklog" >
+    <id column="DID" property="did" jdbcType="INTEGER" />
+    <result column="URGENCY" property="urgency" jdbcType="INTEGER" />
+    <result column="PID" property="pid" jdbcType="INTEGER" />
+    <result column="PTABLE" property="ptable" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="OPERMODULEZH" property="opermodulezh" jdbcType="VARCHAR" />
+    <result column="OPERMODULEOWNER" property="opermoduleowner" jdbcType="VARCHAR" />
+    <result column="OPERTYPE" property="opertype" jdbcType="INTEGER" />
+    <result column="OPERDATE" property="operdate" jdbcType="TIMESTAMP" />
+    <result column="USERCODE" property="usercode" jdbcType="VARCHAR" />
+    <result column="ISOPER" property="isoper" jdbcType="INTEGER" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DID, URGENCY, PID, PTABLE, TITLE, OPERMODULEZH, OPERMODULEOWNER, OPERTYPE, OPERDATE, 
+    USERCODE, ISOPER, DETAIL, BZ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bwzk.pojo.SBacklogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from S_BACKLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_BACKLOG
+    where DID = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from S_BACKLOG
+    where DID = #{did,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bwzk.pojo.SBacklogExample" >
+    delete from S_BACKLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bwzk.pojo.SBacklog" >
+    insert into S_BACKLOG (DID, URGENCY, PID, 
+      PTABLE, TITLE, OPERMODULEZH, 
+      OPERMODULEOWNER, OPERTYPE, OPERDATE, 
+      USERCODE, ISOPER, DETAIL, 
+      BZ)
+    values (#{did,jdbcType=INTEGER}, #{urgency,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+      #{ptable,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{opermodulezh,jdbcType=VARCHAR}, 
+      #{opermoduleowner,jdbcType=VARCHAR}, #{opertype,jdbcType=INTEGER}, #{operdate,jdbcType=TIMESTAMP}, 
+      #{usercode,jdbcType=VARCHAR}, #{isoper,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwzk.pojo.SBacklog" >
+    insert into S_BACKLOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        DID,
+      </if>
+      <if test="urgency != null" >
+        URGENCY,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="ptable != null" >
+        PTABLE,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="opermodulezh != null" >
+        OPERMODULEZH,
+      </if>
+      <if test="opermoduleowner != null" >
+        OPERMODULEOWNER,
+      </if>
+      <if test="opertype != null" >
+        OPERTYPE,
+      </if>
+      <if test="operdate != null" >
+        OPERDATE,
+      </if>
+      <if test="usercode != null" >
+        USERCODE,
+      </if>
+      <if test="isoper != null" >
+        ISOPER,
+      </if>
+      <if test="detail != null" >
+        DETAIL,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null" >
+        #{urgency,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="ptable != null" >
+        #{ptable,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="opermodulezh != null" >
+        #{opermodulezh,jdbcType=VARCHAR},
+      </if>
+      <if test="opermoduleowner != null" >
+        #{opermoduleowner,jdbcType=VARCHAR},
+      </if>
+      <if test="opertype != null" >
+        #{opertype,jdbcType=INTEGER},
+      </if>
+      <if test="operdate != null" >
+        #{operdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="isoper != null" >
+        #{isoper,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bwzk.pojo.SBacklogExample" resultType="java.lang.Integer" >
+    select count(*) from S_BACKLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update S_BACKLOG
+    <set >
+      <if test="record.did != null" >
+        DID = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null" >
+        URGENCY = #{record.urgency,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptable != null" >
+        PTABLE = #{record.ptable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opermodulezh != null" >
+        OPERMODULEZH = #{record.opermodulezh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opermoduleowner != null" >
+        OPERMODULEOWNER = #{record.opermoduleowner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opertype != null" >
+        OPERTYPE = #{record.opertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.operdate != null" >
+        OPERDATE = #{record.operdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.usercode != null" >
+        USERCODE = #{record.usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isoper != null" >
+        ISOPER = #{record.isoper,jdbcType=INTEGER},
+      </if>
+      <if test="record.detail != null" >
+        DETAIL = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz != null" >
+        BZ = #{record.bz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update S_BACKLOG
+    set DID = #{record.did,jdbcType=INTEGER},
+      URGENCY = #{record.urgency,jdbcType=INTEGER},
+      PID = #{record.pid,jdbcType=INTEGER},
+      PTABLE = #{record.ptable,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      OPERMODULEZH = #{record.opermodulezh,jdbcType=VARCHAR},
+      OPERMODULEOWNER = #{record.opermoduleowner,jdbcType=VARCHAR},
+      OPERTYPE = #{record.opertype,jdbcType=INTEGER},
+      OPERDATE = #{record.operdate,jdbcType=TIMESTAMP},
+      USERCODE = #{record.usercode,jdbcType=VARCHAR},
+      ISOPER = #{record.isoper,jdbcType=INTEGER},
+      DETAIL = #{record.detail,jdbcType=VARCHAR},
+      BZ = #{record.bz,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwzk.pojo.SBacklog" >
+    update S_BACKLOG
+    <set >
+      <if test="urgency != null" >
+        URGENCY = #{urgency,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        PID = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="ptable != null" >
+        PTABLE = #{ptable,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="opermodulezh != null" >
+        OPERMODULEZH = #{opermodulezh,jdbcType=VARCHAR},
+      </if>
+      <if test="opermoduleowner != null" >
+        OPERMODULEOWNER = #{opermoduleowner,jdbcType=VARCHAR},
+      </if>
+      <if test="opertype != null" >
+        OPERTYPE = #{opertype,jdbcType=INTEGER},
+      </if>
+      <if test="operdate != null" >
+        OPERDATE = #{operdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usercode != null" >
+        USERCODE = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="isoper != null" >
+        ISOPER = #{isoper,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null" >
+        DETAIL = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwzk.pojo.SBacklog" >
+    update S_BACKLOG
+    set URGENCY = #{urgency,jdbcType=INTEGER},
+      PID = #{pid,jdbcType=INTEGER},
+      PTABLE = #{ptable,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      OPERMODULEZH = #{opermodulezh,jdbcType=VARCHAR},
+      OPERMODULEOWNER = #{opermoduleowner,jdbcType=VARCHAR},
+      OPERTYPE = #{opertype,jdbcType=INTEGER},
+      OPERDATE = #{operdate,jdbcType=TIMESTAMP},
+      USERCODE = #{usercode,jdbcType=VARCHAR},
+      ISOPER = #{isoper,jdbcType=INTEGER},
+      DETAIL = #{detail,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR}
+    where DID = #{did,jdbcType=INTEGER}
+  </update>
+</mapper>

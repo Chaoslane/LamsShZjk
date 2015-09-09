@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<context:component-scan base-package="com.bwzk" />
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	    <property name="locations">  
+	        <list>  
+	        	<!-- 这里支持多种寻址方式：classpath和file -->  
+	            <value>classpath*:config.properties</value>  
+	            <!-- 推荐使用file的方式引入，这样可以将配置和代码分离
+              	<value>file:/opt/demo/config/demo-mq.properties</value>  
+              	 -->  
+	        </list>  
+	    </property>  
+	</bean>  
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 		<property name="jndiName" value="${jdbc.jndiName}" /> -->
+<!-- 	</bean> -->
+	<!-- 神化数据源-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="driverClassName" value="${jdbc.driverClassName}" />
+	<property name="url" value="${jdbc.url}" />
+	<property name="username" value="${jdbc.username}" />
+	<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- 神化OA数据源-->
+	<bean id="dataSource_oa" class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="driverClassName" value="${oa.jdbc.driverClassName}" />
+	<property name="url" value="${oa.jdbc.url}" />
+	<property name="username" value="${oa.jdbc.username}" />
+	<property name="password" value="${oa.jdbc.password}" />
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mybatis/*.xml"></property>
+	</bean>
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.bwzk.dao.i" />
+		<property name="markerInterface" value="com.bwzk.dao.BaseDao"/>  
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 神化jdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 神化OA jdbcTemplate -->
+	<bean id="jdbcTemplate_oa" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource_oa" />
+	</bean>
+	
+    <!-- 事务配置 UNIS-->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<qualifier value="thamsTX" />
+	</bean>
+	<bean id="txManager_oa" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource_oa" />
+		<qualifier value="thamsTX" />
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="txManager_oa" />
+	
+	<!-- 下面是显示定时相关配置 
+	<task:scheduled-tasks>  
+        <task:scheduled ref="userGropuServiceImp" method="ssss" cron="* * * * * *"/>
+    </task:scheduled-tasks> 
+		注解实现定时器
+		<task:annotation-driven/> 
+	    void的方法上加@Scheduled(cron="0 * * * * *") 可实现定时 
+    	@Scheduled(cron="0 * * * * *")  代表每分钟执行一次  
+    	@Scheduled(cron="* * * * * *")  代表每秒钟执行一次  
+    	                 0 0 2 * * ?    每晚2点执行一次
+	    1 Seconds (0-59) 
+        2 Minutes (0-59) 
+        3 Hours (0-23) 
+        4 Day of month (1-31) 
+        5 Month (1-12 or JAN-DEC) 
+        6 Day of week (1-7 or SUN-SAT) 
+        7 Year (1970-2099) 
+        取值：可以是单个值，如6； 
+              也可以是个范围，如9-12； 
+              也可以是个列表，如9,11,13 
+              也可以是任意取值，使用* 
+      每晚11点同步
+	<task:scheduled-tasks>  
+        <task:scheduled ref="arcServcieImpl" method="initUserGroup" cron="0 0 23 * * ?"/>
+    </task:scheduled-tasks>
+     -->
+	
+</beans>
