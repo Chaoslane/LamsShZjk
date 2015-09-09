@@ -74,9 +74,13 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 	<tx:annotation-driven transaction-manager="txManager_oa" />
 	
+	<task:scheduled-tasks>  
+        <task:scheduled ref="oaDataRcvService" method="dataReceive" cron="0 5 * * * *"/>
+    </task:scheduled-tasks> 
+	
 	<!-- 下面是显示定时相关配置 
 	<task:scheduled-tasks>  
-        <task:scheduled ref="userGropuServiceImp" method="ssss" cron="* * * * * *"/>
+        <task:scheduled ref="userGropuServiceImp" method="dataReceive" cron="0 5 * * * *"/>
     </task:scheduled-tasks> 
 		注解实现定时器
 		<task:annotation-driven/> 
