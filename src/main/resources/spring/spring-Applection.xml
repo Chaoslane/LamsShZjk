@@ -75,7 +75,7 @@
 	<tx:annotation-driven transaction-manager="txManager_oa" />
 	
 	<task:scheduled-tasks>  
-        <task:scheduled ref="oaDataRcvService" method="dataReceive" cron="0 5 * * * *"/>
+        <task:scheduled ref="oaDataRcvService" method="dataReceive" cron="0 * * * * *"/>
     </task:scheduled-tasks> 
 	
 	<!-- 下面是显示定时相关配置 

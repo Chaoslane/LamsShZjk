@@ -7,9 +7,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Lams接口控制台</title>
-	    <link href="${pageContext.request.contextPath}/res/js/bootstrap-3.0.3-dist/css/bootstrap.css" rel="stylesheet">
-	    <link href="${pageContext.request.contextPath}/res/js/bootstrap-3.0.3-dist/css/bootstrap-theme.min.css" rel="stylesheet">
-	    <link href="${pageContext.request.contextPath}/res/js/self/theme.css" rel="stylesheet">
+	    <link href="/LamsShZjk/res/js/bootstrap-3.0.3-dist/css/bootstrap.css" rel="stylesheet">
+	    <link href="/LamsShZjk/res/js/bootstrap-3.0.3-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+	    <link href="/LamsShZjk/res/js/self/theme.css" rel="stylesheet">
 	</head>
 	<script type="text/javascript">
 	function submitSyncUserGroup(){
@@ -28,17 +28,17 @@
 			<button class="btn btn-lg btn-warning" onclick="submitSyncUserGroup()">同步用户和部门</button>
 			<br>
 			<a class="btn btn-lg btn-default"
-				href="${pageContext.request.contextPath}/gepsCtl/testGeps">查看项目个数 (测试)</a>
+				href="/LamsShZjk//gepsCtl/testGeps">查看项目个数 (测试)</a>
 			<br>
 			<a class="btn btn-lg btn-danger"
-				href="${pageContext.request.contextPath}/initMapping">初始化接口代码表</a><br>
+				href="/LamsShZjk//initMapping">初始化接口代码表</a><br>
 			<a class="btn btn-lg btn-info"
-				href="${pageContext.request.contextPath}/gepsSync">接收项目档案数据</a>
+				href="/LamsShZjk//gepsSync">接收项目档案数据</a>
 			 -->
 			<a class="btn btn-lg btn-primary"
-	 			href="${pageContext.request.contextPath}/viewLogList">查看日志</a>
+	 			href="/LamsShZjk/viewLogList">查看日志</a>
 			<a class="btn btn-lg btn-primary"
-	 			href="${pageContext.request.contextPath}/oadataReceive">数据接收</a>
+	 			href="/LamsShZjk/oadataReceive">数据接收</a>
 		</p>
 	</div>
 </body>
